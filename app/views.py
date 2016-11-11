@@ -107,6 +107,7 @@ def navigate():
     destination = {'a': 0.0, 'b': 0.0}
     my_pos = {'x': 0.0, 'y': 0.0}
     angle = 0
+    dist = 0
     if request.method == 'POST':
         destination['a'] = float(request.form['dest_a'])
         destination['b'] = float(request.form['dest_b'])
