@@ -10,8 +10,8 @@ class ProcessPorts:
             x = port['Position']['x']
             z = port['Position']['z']
 
-            carl_x = -23400.0005230308
-            pr_x = -42400.0009477139
+            carl_x, carl_z = -23400.0005230308, 0
+            pr_x, pr_z = -42400.0009477139, 0
             delta_x = carl_x - pr_x
             delta_x_grad = 75.56 - 75.18
             one_grad = delta_x/delta_x_grad
