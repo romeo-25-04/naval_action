@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+{% block body %}
+<!-- Accordion Modules -->
+<div class="panel-group" id="modules" role="tablist" aria-multiselectable="true">
+    {% for name in mod_keys %}
+    <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="heading_{{ mods[name][0].Id }}">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse"
+                   data-parent="#modules"
+                   href="#collapse_{{ mods[name][0].Id }}"
+                   aria-expanded="true"
+                   aria-controls="collapse_{{ mods[name][0].Id }}">{{ name }}</a>
+            </h4>
+        </div>
+        <div id="collapse_{{ mods[name][0].Id }}"
+             class="panel-collapse collapse {% if loop.first %}in{% endif %}"
+             role="tabpanel"
+             aria-labelledby="heading_{{ mods[name][0].Id }}">
+            <div class="panel-body">
+                <ul>
+                    {% for undermodule in mods[name] %}
+                    <li>{{ undermodule.Name }}
+                        <ul class="">
+                            {% for modifier in undermodule.Modifiers %}
+                            <li>{{ modifier.Slot }},
+                                {% for mappingId in modifier.MappingIds %}
+                                {{ mappingId }},
+                                {% endfor %}:
+                                <ul>
+                                    <li>Absolute: {{ modifier.Absolute }}</li>
+                                    <li>Percentage: {{ modifier.Percentage }}</li>
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                     </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

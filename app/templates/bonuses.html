@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block body %}
+<!-- Acordion Bonus -->
+<div class="panel-group" id="reg_bonuses" role="tablist" aria-multiselectable="true">
+    {% for reg_bonus in reg_bonuses %}
+    <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="heading_{{ reg_bonus.Id }}">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse"
+                   data-parent="#reg_bonuses"
+                   href="#collapse_{{ reg_bonus.Id }}"
+                   aria-expanded="true"
+                   aria-controls="collapse_{{ reg_bonus.Id }}">{{ reg_bonus.Name }}</a>
+            </h4>
+        </div>
+        <div id="collapse_{{ reg_bonus.Id }}"
+             class="panel-collapse collapse {% if loop.first %}in{% endif %}"
+             role="tabpanel" aria-labelledby="heading_{{ reg_bonus.Id }}">
+            <div class="panel-body">
+                <ul class="">
+                    {% for modifier in reg_bonus.Modifiers %}
+                    <li>{{ modifier.Slot }},
+                        {% for mappingId in modifier.MappingIds %}
+                        {{ mappingId }},
+                        {% endfor %}:
+                        <ul>
+                            <li>Absolute: {{ modifier.Absolute }}</li>
+                            <li>Percentage: {{ modifier.Percentage }}</li>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+{% block body %}
+<div class="panel panel-info col-md-6">
+    <div class="panel-heading">
+        <h3 class="panel-title">Navigate to Destination</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" action="/navigate" method="post">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dest_a">Dest Lon a/</label>
+                    <input name="dest_a" type="number" step="0.01" class="form-control" id="dest_a" value="{{ destination.a }}">
+                </div>
+                <div class="form-group">
+                    <label for="dest_b">Dest Lat /b</label>
+                    <input name="dest_b" type="number" step="0.01" class="form-control" id="dest_b" value="{{ destination.b }}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="my_pos_x">My Position Lon x/</label>
+                    <input name="my_pos_x" type="number" step="0.01" class="form-control" id="my_pos_x" value="{{ my_pos.x }}">
+                </div>
+                <div class="form-group">
+                    <label for="my_pos_y">My Position Lat /y</label>
+                    <input name="my_pos_y" type="number" step="0.01" class="form-control" id="my_pos_y" value="{{ my_pos.y }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <canvas id="compass_img" width="200" height="200">
+            <img id="compass" src="/static/img/compass.png" class="img-responsive" alt="Compass">
+            <img id="needle" src="/static/img/needle.png" class="img-responsive" alt="Ship">
+        </canvas>
+        <p>Your direction is {{ -angle }}°</p>
+        <p>Distance is {{ dist }} Km</p>
+    </div>
+</div>
+<div class="panel panel-info col-md-6">
+    <div class="panel-heading">
+        <h3 class="panel-title">Ports</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed">
+            <tr>
+                <th>Name</th><th>X</th><th>Z</th>
+            </tr>
+            {% for port in ports %}
+            <tr>
+                <td>{{ port.Name }}</td><td>{{ port.lon }}</td><td>{{ port.lat }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<script>
+    var angle = {{ angle }};
+    var c = document.getElementById("compass_img");
+    var ctx = c.getContext("2d")
+    var needle = document.getElementById("needle");
+    var compass = document.getElementById("compass");
+    ctx.drawImage(needle, 10, 10);
+    ctx.translate(9, 9);
+    ctx.translate(83, 83);
+    ctx.rotate(angle * Math.PI/180);
+    ctx.drawImage(compass, -83, -83);
+</script>
+{% endblock %}
