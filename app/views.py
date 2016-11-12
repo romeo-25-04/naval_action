@@ -122,3 +122,8 @@ def navigate():
                            angle=-angle,
                            ports=ports,
                            dist=dist)
+
+@app.route('/compare')
+def compare():
+    return render_template('compare.html',
+                           title='Compare Ships')
