@@ -1,4 +1,30 @@
 {% extends "index.html" %}
 {% block body %}
-<p>Compare</p>
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown">Select First Ship<span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+  </ul>
+</div>
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown">Select Second Ship
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+  </ul>
+</div>
+<table class="table table-condensed">
+    <tr>
+        <th>#</th><th>Specs</th><th>Ship 1</th><th>Ship 2</th>
+    </tr>
+
+</table>
 {% endblock %}

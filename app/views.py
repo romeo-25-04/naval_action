@@ -123,7 +123,12 @@ def navigate():
                            ports=ports,
                            dist=dist)
 
+
 @app.route('/compare')
 def compare():
+    ship_list = [{'Name': item.get('Name', None),
+                  'Id': item.get('Id', None)}
+                 for item in sorted(processed_data.ships, key=lambda k: k['Name'])]
     return render_template('compare.html',
-                           title='Compare Ships')
+                           title='Compare Ships',
+                           ship_list=ship_list)
