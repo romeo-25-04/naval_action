@@ -124,11 +124,42 @@ def navigate():
                            dist=dist)
 
 
+def get_deck_class_limits(deck):
+    cannon_min_class = deck['Limitation1']['Min']
+    cannon_max_class = deck['Limitation1']['Max']
+    carros_min_class = deck['Limitation2']['Min']
+    carros_max_class = deck['Limitation2']['Max']
+    return "[{}-{}]/[{}-{}]".format(
+        cannon_min_class if cannon_min_class != 0 else "",
+        cannon_max_class if cannon_max_class != 0 else "",
+        carros_min_class if carros_min_class != 0 else "",
+        carros_max_class if carros_max_class != 0 else "")
+
+
 @app.route('/compare')
-def compare():
+@app.route('/compare/<int:ship_1_id>/<int:ship_2_id>')
+def compare(ship_1_id=650, ship_2_id=286):
     ship_list = [{'Name': item.get('Name', None),
                   'Id': item.get('Id', None)}
                  for item in sorted(processed_data.ships, key=lambda k: k['Name'])]
+    ship_1 = processed_data.get_item_by_id(ship_1_id)
+    ship_2 = processed_data.get_item_by_id(ship_2_id)
+    decksClassLimitation1 = [get_deck_class_limits(deck) for deck in ship_1['DeckClassLimit']]
+    decksClassLimitation1_front = get_deck_class_limits(ship_1["FrontDeckClassLimit"][0]) if ship_1['FrontDecks'] != 0 else "[-]/[-]"
+    decksClassLimitation1_back = get_deck_class_limits(ship_1["BackDeckClassLimit"][0]) if ship_1['BackDecks'] != 0 else "[-]/[-]"
+
+    decksClassLimitation2 = [get_deck_class_limits(deck) for deck in ship_2['DeckClassLimit']]
+    decksClassLimitation2_front = get_deck_class_limits(ship_2["FrontDeckClassLimit"][0]) if ship_2['FrontDecks'] != 0 else "[-]/[-]"
+    decksClassLimitation2_back = get_deck_class_limits(ship_2["BackDeckClassLimit"][0]) if ship_2['FrontDecks'] != 0 else "[-]/[-]"
+
     return render_template('compare.html',
                            title='Compare Ships',
-                           ship_list=ship_list)
+                           ship_list=ship_list,
+                           ship_1=ship_1,
+                           ship_2=ship_2,
+                           decksClassLimitation1=decksClassLimitation1,
+                           decksClassLimitation1_front=decksClassLimitation1_front,
+                           decksClassLimitation1_back=decksClassLimitation1_back,
+                           decksClassLimitation2=decksClassLimitation2,
+                           decksClassLimitation2_front=decksClassLimitation2_front,
+                           decksClassLimitation2_back=decksClassLimitation2_back)

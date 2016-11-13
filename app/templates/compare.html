@@ -1,30 +1,131 @@
 {% extends "index.html" %}
 {% block body %}
-<div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown">Select First Ship<span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">HTML</a></li>
-    <li><a href="#">CSS</a></li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
-</div>
-<div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown">Select Second Ship
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">HTML</a></li>
-    <li><a href="#">CSS</a></li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
-</div>
-<table class="table table-condensed">
-    <tr>
-        <th>#</th><th>Specs</th><th>Ship 1</th><th>Ship 2</th>
-    </tr>
+    <div class="row">
+        <div class="dropdown col-md-3">
+            <button class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">Select First Ship<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {% for ship in ship_list %}
+                <li><a href="/compare/{{ ship.Id }}/{{ ship_2.Id }}">{{ ship.Name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="dropdown col-md-3">
+            <button class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">Select Second Ship
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {% for ship in ship_list %}
+                <li><a href="/compare/{{ ship_1.Id }}/{{ ship.Id }}">{{ ship.Name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-</table>
+    <table class="table table-condensed">
+        <tr><th class="col-md-6"><h2>Specs</h2></th>
+            <th class="col-md-3"><h2>{{ ship_1.Name }}</h2></th>
+            <th class="col-md-3"><h2>{{ ship_2.Name }}</h2></th>
+        </tr>
+        <tr><td>Durability</td>
+            <td class="{% if ship_1.BaseDurability >= ship_2.BaseDurability %}success{% else %}danger{% endif %}">{{ ship_1.BaseDurability }}</td>
+            <td class="{% if ship_2.BaseDurability >= ship_1.BaseDurability %}success{% else %}danger{% endif %}">{{ ship_2.BaseDurability }}</td>
+        </tr>
+        <tr><td>Battle Rating</td>
+            <td class="{% if ship_1.BattleRating >= ship_2.BattleRating %}success{% else %}danger{% endif %}">{{ ship_1.BattleRating }}</td>
+            <td class="{% if ship_2.BattleRating >= ship_1.BattleRating %}success{% else %}danger{% endif %}">{{ ship_2.BattleRating }}</td>
+        </tr>
+        <tr><td>MaxSpeed</td>
+            <td class="{% if ship_1.Specs.MaxSpeed >= ship_2.Specs.MaxSpeed %}success{% else %}danger{% endif %}">{{ ship_1.Specs.MaxSpeed }}</td>
+            <td class="{% if ship_2.Specs.MaxSpeed >= ship_1.Specs.MaxSpeed %}success{% else %}danger{% endif %}">{{ ship_2.Specs.MaxSpeed }}</td>
+        </tr>
+        <tr><td>Max Hold Weight</td>
+            <td class="{% if ship_1.MaxWeight >= ship_2.MaxWeight %}success{% else %}danger{% endif %}">{{ ship_1.MaxWeight }}</td>
+            <td class="{% if ship_2.MaxWeight >= ship_1.MaxWeight %}success{% else %}danger{% endif %}">{{ ship_2.MaxWeight }}</td>
+        </tr>
+        <tr><td>Hold Slots</td>
+            <td class="{% if ship_1.HoldSize >= ship_2.HoldSize %}success{% else %}danger{% endif %}">{{ ship_1.HoldSize }}</td>
+            <td class="{% if ship_2.HoldSize >= ship_1.HoldSize %}success{% else %}danger{% endif %}">{{ ship_2.HoldSize }}</td>
+        </tr>
+         <tr><td>Max Crew</td>
+            <td class="{% if ship_1.HealthInfo.Crew >= ship_2.HealthInfo.Crew %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Crew }}</td>
+            <td class="{% if ship_2.HealthInfo.Crew >= ship_1.HealthInfo.Crew %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Crew }}</td>
+        </tr>
+        <tr><td>Min Crew Required</td>
+            <td class="{% if ship_1.MinCrewRequired <= ship_2.MinCrewRequired %}success{% else %}danger{% endif %}">{{ ship_1.MinCrewRequired }}</td>
+            <td class="{% if ship_2.MinCrewRequired <= ship_1.MinCrewRequired %}success{% else %}danger{% endif %}">{{ ship_2.MinCrewRequired }}</td>
+        </tr>
+        <tr><td>Ship Mass</td>
+            <td class="{% if ship_1.ShipMass <= ship_2.ShipMass %}success{% else %}danger{% endif %}">{{ ship_1.ShipMass }}</td>
+            <td class="{% if ship_2.ShipMass <= ship_1.ShipMass %}success{% else %}danger{% endif %}">{{ ship_2.ShipMass }}</td>
+        </tr>
+    </table>
+
+    <table class="table table-condensed">
+        <tr><th class="col-md-6"><h2>Health</h2></th>
+            <th class="col-md-3"><h2>{{ ship_1.Name }}</h2></th>
+            <th class="col-md-3"><h2>{{ ship_2.Name }}</h2></th>
+        </tr>
+        <tr><td>Side Armor</td>
+            <td class="{% if ship_1.HealthInfo.RightArmor >= ship_2.HealthInfo.RightArmor %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.RightArmor }}</td>
+            <td class="{% if ship_2.HealthInfo.RightArmor >= ship_1.HealthInfo.RightArmor %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.RightArmor }}</td>
+        </tr>
+        <tr><td>FrontArmor</td>
+            <td class="{% if ship_1.HealthInfo.FrontArmor >= ship_2.HealthInfo.FrontArmor %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.FrontArmor }}</td>
+            <td class="{% if ship_2.HealthInfo.FrontArmor >= ship_1.HealthInfo.FrontArmor %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.FrontArmor }}</td>
+        </tr>
+        <tr><td>BackArmor</td>
+            <td class="{% if ship_1.HealthInfo.BackArmor >= ship_2.HealthInfo.BackArmor %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.BackArmor }}</td>
+            <td class="{% if ship_2.HealthInfo.BackArmor >= ship_1.HealthInfo.BackArmor %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.BackArmor }}</td>
+        </tr>
+        <tr><td>Hull</td>
+            <td class="{% if ship_1.HealthInfo.Hull >= ship_2.HealthInfo.Hull %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Hull }}</td>
+            <td class="{% if ship_2.HealthInfo.Hull >= ship_1.HealthInfo.Hull %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Hull }}</td>
+        </tr>
+        <tr><td>Sails</td>
+            <td class="{% if ship_1.HealthInfo.Sails >= ship_2.HealthInfo.Sails %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Sails }}</td>
+            <td class="{% if ship_2.HealthInfo.Sails >= ship_1.HealthInfo.Sails %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Sails }}</td>
+        </tr>
+        <tr><td>Rudder</td>
+            <td class="{% if ship_1.HealthInfo.Rudder >= ship_2.HealthInfo.Rudder %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Rudder }}</td>
+            <td class="{% if ship_2.HealthInfo.Rudder >= ship_1.HealthInfo.Rudder %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Rudder }}</td>
+        </tr>
+        <tr><td>Pump</td>
+            <td class="{% if ship_1.HealthInfo.Pump >= ship_2.HealthInfo.Pump %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Pump }}</td>
+            <td class="{% if ship_2.HealthInfo.Pump >= ship_1.HealthInfo.Pump %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Pump }}</td>
+        </tr>
+    </table>
+
+    <table class="table table-condensed">
+        <tr><th class="col-md-6"><h2 class="primare">Guns</h2></th>
+            <th class="col-md-3"><h2>{{ ship_1.Name }}</h2></th>
+            <th class="col-md-3"><h2>{{ ship_2.Name }}</h2></th>
+        </tr>
+        <tr><td>Deck 1</td>
+            <td class="{% if ship_1.HealthInfo.Deck1 >= ship_2.HealthInfo.Deck1 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck1 }} {{ decksClassLimitation1[0] }}</td>
+            <td class="{% if ship_2.HealthInfo.Deck1 >= ship_1.HealthInfo.Deck1 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck1 }} {{ decksClassLimitation2[0] }}</td>
+        </tr>
+        <tr><td>Deck 2</td>
+            <td class="{% if ship_1.HealthInfo.Deck2 >= ship_2.HealthInfo.Deck2 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck2 }} {{ decksClassLimitation1[1] }}</td>
+            <td class="{% if ship_2.HealthInfo.Deck2 >= ship_1.HealthInfo.Deck2 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck2 }} {{ decksClassLimitation2[1] }}</td>
+        </tr>
+        <tr><td>Deck 3</td>
+            <td class="{% if ship_1.HealthInfo.Deck3 >= ship_2.HealthInfo.Deck3 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck3 }} {{ decksClassLimitation1[2] }}</td>
+            <td class="{% if ship_2.HealthInfo.Deck3 >= ship_1.HealthInfo.Deck3 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck3 }} {{ decksClassLimitation2[2] }}</td>
+        </tr>
+        <tr><td>Deck 4</td>
+            <td class="{% if ship_1.HealthInfo.Deck4 >= ship_2.HealthInfo.Deck4 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck4 }} {{ decksClassLimitation1[3] }}</td>
+            <td class="{% if ship_2.HealthInfo.Deck4 >= ship_1.HealthInfo.Deck4 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck4 }} {{ decksClassLimitation2[3] }}</td>
+        </tr>
+        <tr><td>Front Deck</td>
+            <td class="{% if ship_1.FrontDecks >= ship_2.FrontDecks %}success{% else %}danger{% endif %}">{{ ship_1.FrontDecks }} {{ decksClassLimitation1_front }}</td>
+            <td class="{% if ship_2.FrontDecks >= ship_1.FrontDecks %}success{% else %}danger{% endif %}">{{ ship_2.FrontDecks }} {{ decksClassLimitation2_front }}</td>
+        </tr>
+        <tr><td>Back Deck</td>
+            <td class="{% if ship_1.BackDecks >= ship_2.BackDecks %}success{% else %}danger{% endif %}">{{ ship_1.BackDecks }} {{ decksClassLimitation1_back }}</td>
+            <td class="{% if ship_2.BackDecks >= ship_1.BackDecks %}success{% else %}danger{% endif %}">{{ ship_2.BackDecks }} {{ decksClassLimitation2_back }}</td>
+        </tr>
+    </table>
 {% endblock %}
