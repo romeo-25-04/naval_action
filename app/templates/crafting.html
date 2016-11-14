@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block body %}
 <div class="row" id="test-scroll">
-    <ul class="nav nav-pills nav-stacked col-md-3">
+    <ul class="nav nav-pills nav-stacked col-md-3 shipList">
         {% for ship in ships %}
         {% if ship.Id == ship_id %}
         <li role="presentation" class="active">

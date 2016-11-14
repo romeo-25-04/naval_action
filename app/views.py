@@ -12,7 +12,7 @@ processed_data = ProcessData(item_data)
 materials = processed_data.materials
 resources = processed_data.resources
 mat_res = materials + resources
-reg_bonuses = processed_data.reg_bonuses
+reg_bonuses = sorted(processed_data.reg_bonuses, key=lambda k: k['Name'])
 mods = processed_data.modules
 
 processed_ports = ProcessPorts(na_data.ports_data)
@@ -36,6 +36,7 @@ def crafting_id(ship_id=650, quality=0, wood_nr=0):
                  for item in sorted(processed_data.ships, key=lambda k: k['SortingGroup'])]
     page = render_template('crafting.html',
                            title='Crafting',
+                           acCraft='active',
                            ship_id=ship_id,
                            quality=quality,
                            wood_nr=wood_nr,
@@ -51,6 +52,7 @@ def crafting_id(ship_id=650, quality=0, wood_nr=0):
 def regional_bonuses():
     return render_template('bonuses.html',
                            title='Regional Bonuses',
+                           acRegBonus='active',
                            reg_bonuses=reg_bonuses)
 
 
@@ -62,10 +64,11 @@ def modules():
             modules_by_name[mod['Name']].append(mod)
         else:
             modules_by_name[mod['Name']] = [mod]
-    mod_keys = list(modules_by_name.keys())
+    mod_keys = sorted(modules_by_name.keys())
     print(mod_keys)
     return render_template('modules.html',
                            title='Modules',
+                           acModules='active',
                            mod_keys=mod_keys,
                            mods=modules_by_name)
 
@@ -117,6 +120,7 @@ def navigate():
         dist = distance(my_pos, port_pos=destination)
     return render_template('navigate.html',
                            title='Navigation',
+                           acNavigate='active',
                            destination=destination,
                            my_pos=my_pos,
                            angle=-angle,
@@ -154,6 +158,7 @@ def compare(ship_1_id=650, ship_2_id=286):
 
     return render_template('compare.html',
                            title='Compare Ships',
+                           acCompare='active',
                            ship_list=ship_list,
                            ship_1=ship_1,
                            ship_2=ship_2,
