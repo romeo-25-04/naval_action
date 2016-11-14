@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+workon naval
 rm ./local_data/*
-python ./src/main.py
+python main.py
