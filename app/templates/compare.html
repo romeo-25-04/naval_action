@@ -103,27 +103,27 @@
             <th class="col-md-3"><h2>{{ ship_1.Name }}</h2></th>
             <th class="col-md-3"><h2>{{ ship_2.Name }}</h2></th>
         </tr>
-        <tr><td>Deck 1</td>
+        <tr><td>Deck 1 nr. GUNS and class limitations</td>
             <td class="{% if ship_1.HealthInfo.Deck1 >= ship_2.HealthInfo.Deck1 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck1 }} {{ decksClassLimitation1[0] }}</td>
             <td class="{% if ship_2.HealthInfo.Deck1 >= ship_1.HealthInfo.Deck1 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck1 }} {{ decksClassLimitation2[0] }}</td>
         </tr>
-        <tr><td>Deck 2</td>
+        <tr><td>Deck 2 nr. GUNS and class limitations</td>
             <td class="{% if ship_1.HealthInfo.Deck2 >= ship_2.HealthInfo.Deck2 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck2 }} {{ decksClassLimitation1[1] }}</td>
             <td class="{% if ship_2.HealthInfo.Deck2 >= ship_1.HealthInfo.Deck2 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck2 }} {{ decksClassLimitation2[1] }}</td>
         </tr>
-        <tr><td>Deck 3</td>
+        <tr><td>Deck 3 nr. GUNS and class limitations</td>
             <td class="{% if ship_1.HealthInfo.Deck3 >= ship_2.HealthInfo.Deck3 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck3 }} {{ decksClassLimitation1[2] }}</td>
             <td class="{% if ship_2.HealthInfo.Deck3 >= ship_1.HealthInfo.Deck3 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck3 }} {{ decksClassLimitation2[2] }}</td>
         </tr>
-        <tr><td>Deck 4</td>
+        <tr><td>Deck 4 nr. GUNS and class limitations</td>
             <td class="{% if ship_1.HealthInfo.Deck4 >= ship_2.HealthInfo.Deck4 %}success{% else %}danger{% endif %}">{{ ship_1.HealthInfo.Deck4 }} {{ decksClassLimitation1[3] }}</td>
             <td class="{% if ship_2.HealthInfo.Deck4 >= ship_1.HealthInfo.Deck4 %}success{% else %}danger{% endif %}">{{ ship_2.HealthInfo.Deck4 }} {{ decksClassLimitation2[3] }}</td>
         </tr>
-        <tr><td>Front Deck</td>
+        <tr><td>Front Deck nr. DECKS and class limitations</td>
             <td class="{% if ship_1.FrontDecks >= ship_2.FrontDecks %}success{% else %}danger{% endif %}">{{ ship_1.FrontDecks }} {{ decksClassLimitation1_front }}</td>
             <td class="{% if ship_2.FrontDecks >= ship_1.FrontDecks %}success{% else %}danger{% endif %}">{{ ship_2.FrontDecks }} {{ decksClassLimitation2_front }}</td>
         </tr>
-        <tr><td>Back Deck</td>
+        <tr><td>Back Deck nr. DECKS and class limitations</td>
             <td class="{% if ship_1.BackDecks >= ship_2.BackDecks %}success{% else %}danger{% endif %}">{{ ship_1.BackDecks }} {{ decksClassLimitation1_back }}</td>
             <td class="{% if ship_2.BackDecks >= ship_1.BackDecks %}success{% else %}danger{% endif %}">{{ ship_2.BackDecks }} {{ decksClassLimitation2_back }}</td>
         </tr>
