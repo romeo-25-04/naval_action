@@ -1,253 +1,265 @@
 {% extends "index.html" %}
 {% block body %}
-<div class="row" id="test-scroll">
-    <ul class="nav nav-pills nav-stacked col-md-3 shipList">
-        {% for ship in ships %}
-        {% if ship.Id == ship_id %}
-        <li role="presentation" class="active">
-            {% else %}
-        <li role="presentation">
-            {% endif %}
-            <a href="/crafting/{{ ship.Id }}/{{ quality }}/{{ wood_nr }}">{{ ship.Name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-    <div class="tab-content col-md-9">
+    <div class="row" id="test-scroll">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked shipList">
+                {% for ship in ships %}
+                    {% if ship.Id == ship_id %}
+                        <li role="presentation" class="active">
+                            {% else %}
+                        <li role="presentation">
+                    {% endif %}
+                <a href="/crafting/{{ ship.Id }}/{{ quality }}/{{ wood_nr }}">{{ ship.Name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-content col-md-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h2 class="panel-title"> {{ ship.Name }}. Group: {{ship.SortingGroup}}</h2>
+                    <h2 class="panel-title"> {{ ship.Name }}. Group: {{ ship.SortingGroup }}</h2>
                 </div>
                 <div class="panel-body container-fluid">
                     <div class="row">
-                        <div class="panel panel-info col-md-7">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Materials for {{ ship.Name }}</h3>
-                            </div>
-                            <div class="panel-body">
-                                {% if recipe == None %}
-                                <p> No Blueprint available</p>
-                                {% else %}
-                                <h2>{{ recipe.Name }}</h2>
-                                <h3>Crafting Data</h3>
-                                <table class="table table-condensed">
-                                    <tr>
-                                        <td>Gives XP</td><td>{{ recipe.GivesXP }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Labor Price</td><td>{{ recipe.LaborPrice }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Min Craft Lvl</td><td>{{ recipe.RequiresLevel }}</td>
-                                    </tr>
-                                </table>
-                                <h3>Extras</h3>
-                                <div class="dropdown">
-                                    <button class="btn btn-info dropdown-toggle"
-                                            type="button" id="qualityDropdown"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Quality
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="qualityDropdown">
-                                        <li><a href="/crafting/{{ ship_id }}/0/{{ wood_nr }}">Basic</a></li>
-                                        <li><a href="/crafting/{{ ship_id }}/1/{{ wood_nr }}">Common</a></li>
-                                        <li><a href="/crafting/{{ ship_id }}/2/{{ wood_nr }}">Fine</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="/crafting/{{ ship_id }}/3/{{ wood_nr }}">Mastercraft</a></li>
-                                        <li><a href="/crafting/{{ ship_id }}/4/{{ wood_nr }}">Exceptional</a></li>
-                                    </ul>
+                        <div class="col-md-7">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Materials for {{ ship.Name }}</h3>
                                 </div>
-                                <table class="table table-condensed">
-                                    <tr>
-                                       <th>#</th>
-                                        <th>Amount</th>
-                                        <th>Name</th>
-                                    </tr>
-                                    {%for requirement in recipe.Qualities[quality].Requirements %}
-                                    <tr>
-                                        <td><input type="checkbox" value=""></td>
-                                        <td>{{ requirement.Amount }}</td>
-                                        <td>
-                                            {% for mat_resource in mat_res if mat_resource.Id == requirement.Template %}
-                                            {{ mat_resource.Name }}
+                                <div class="panel-body">
+                                    {% if recipe == None %}
+                                        <p> No Blueprint available</p>
+                                    {% else %}
+                                        <h2>{{ recipe.Name }}</h2>
+                                        <h3>Crafting Data</h3>
+                                        <table class="table table-condensed">
+                                            <tr>
+                                                <td>Gives XP</td>
+                                                <td>{{ recipe.GivesXP }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Labor Price</td>
+                                                <td>{{ recipe.LaborPrice }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Min Craft Lvl</td>
+                                                <td>{{ recipe.RequiresLevel }}</td>
+                                            </tr>
+                                        </table>
+                                        <h3>Extras</h3>
+                                        <div class="dropdown">
+                                            <button class="btn btn-info dropdown-toggle"
+                                                    type="button" id="qualityDropdown"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Quality
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="qualityDropdown">
+                                                <li><a href="/crafting/{{ ship_id }}/0/{{ wood_nr }}">Basic</a></li>
+                                                <li><a href="/crafting/{{ ship_id }}/1/{{ wood_nr }}">Common</a></li>
+                                                <li><a href="/crafting/{{ ship_id }}/2/{{ wood_nr }}">Fine</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a href="/crafting/{{ ship_id }}/3/{{ wood_nr }}">Mastercraft</a>
+                                                </li>
+                                                <li><a href="/crafting/{{ ship_id }}/4/{{ wood_nr }}">Exceptional</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <table class="table table-condensed">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Amount</th>
+                                                <th>Name</th>
+                                            </tr>
+                                            {% for requirement in recipe.Qualities[quality].Requirements %}
+                                                <tr>
+                                                    <td><input type="checkbox" value=""></td>
+                                                    <td>{{ requirement.Amount }}</td>
+                                                    <td>
+                                                        {% for mat_resource in mat_res if mat_resource.Id == requirement.Template %}
+                                                            {{ mat_resource.Name }}
+                                                        {% endfor %}
+                                                    </td>
+                                                </tr>
                                             {% endfor %}
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </table>
-                                <!-- Acordion Wood -->
-                                <h3>Wood Type Info</h3>
-                                <div class="panel-group" id="woodtypes"
-                                     role="tablist" aria-multiselectable="true">
-                                    {% for woodtype in recipe.WoodTypeDescs %}
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading" role="tab"
-                                             id="heading_{{ woodtype.WoodType }}">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse"
-                                                   data-parent="#woodtypes"
-                                                   href="#collapse_{{ woodtype.WoodType }}"
-                                                   aria-expanded="true"
-                                                   aria-controls="collapse_{{ woodtype.WoodType }}">
-                                                    {% for mat_resource in mat_res if mat_resource.Id ==
+                                        </table>
+                                        <!-- Acordion Wood -->
+                                        <h3>Wood Type Info</h3>
+                                        <div class="panel-group" id="woodtypes"
+                                             role="tablist" aria-multiselectable="true">
+                                            {% for woodtype in recipe.WoodTypeDescs %}
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading" role="tab"
+                                                         id="heading_{{ woodtype.WoodType }}">
+                                                        <h4 class="panel-title">
+                                                            <a role="button" data-toggle="collapse"
+                                                               data-parent="#woodtypes"
+                                                               href="#collapse_{{ woodtype.WoodType }}"
+                                                               aria-expanded="true"
+                                                               aria-controls="collapse_{{ woodtype.WoodType }}">
+                                                                {% for mat_resource in mat_res if mat_resource.Id ==
                                                     woodtype.Requirements[0].Template %}
-                                                    {{ mat_resource.Name }}
-                                                    {% endfor %}
-                                                    {{ woodtype.Requirements[0].Amount }}
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapse_{{ woodtype.WoodType }}"
-                                             class="panel-collapse collapse {% if woodtype.WoodType == wood_nr %}in{% endif %}"
-                                             role="tabpanel"
-                                             aria-labelledby="heading_{{ woodtype.WoodType }}">
-                                            <div class="panel-body">
-                                                <ul class="">
-                                                    {% for modifier in wood_modif[woodtype.WoodType] %}
-                                                    <li>{{ modifier.Slot }},
-                                                        {% for mappingId in modifier.MappingIds %}
-                                                        {{ mappingId }},
-                                                        {% endfor %}:
-                                                        <ul>
-                                                            <li>Absolute: {{ modifier.Absolute }}</li>
-                                                            <li>Percentage: {{ modifier.Percentage }}</li>
-                                                        </ul>
-                                                    </li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                <!-- END Acordion Wood -->
-                                <h3>Requirements</h3>
-                                <table class="table table-condensed">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Amount</th>
-                                        <th>Name</th>
-                                    </tr>
-                                    {% for template in recipe.FullRequirements %}
-                                    <tr>
-                                        <td><input type="checkbox" value=""></td>
-                                        <td>{{ template.Amount }}</td>
-                                        <td>
-                                            {% for mat_resource in mat_res if mat_resource.Id ==
-                                            template.Template %}
-                                            {{ mat_resource.Name }}
+                                                                    {{ mat_resource.Name }}
+                                                                {% endfor %}
+                                                                {{ woodtype.Requirements[0].Amount }}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse_{{ woodtype.WoodType }}"
+                                                         class="panel-collapse collapse {% if woodtype.WoodType == wood_nr %}in{% endif %}"
+                                                         role="tabpanel"
+                                                         aria-labelledby="heading_{{ woodtype.WoodType }}">
+                                                        <div class="panel-body">
+                                                            <ul class="">
+                                                                {% for modifier in wood_modif[woodtype.WoodType] %}
+                                                                    <li>{{ modifier.Slot }},
+                                                                        {% for mappingId in modifier.MappingIds %}
+                                                                            {{ mappingId }},
+                                                                        {% endfor %}:
+                                                                        <ul>
+                                                                            <li>Absolute: {{ modifier.Absolute }}</li>
+                                                                            <li>
+                                                                                Percentage: {{ modifier.Percentage }}</li>
+                                                                        </ul>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             {% endfor %}
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </table>
-                                {% endif %}
-                                <h4>WARNING: Fine Woods not included. No info in the NA API</h4>
+                                        </div>
+                                        <!-- END Acordion Wood -->
+                                        <h3>Requirements</h3>
+                                        <table class="table table-condensed">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Amount</th>
+                                                <th>Name</th>
+                                            </tr>
+                                            {% for template in recipe.FullRequirements %}
+                                                <tr>
+                                                    <td><input type="checkbox" value=""></td>
+                                                    <td>{{ template.Amount }}</td>
+                                                    <td>
+                                                        {% for mat_resource in mat_res if mat_resource.Id ==
+                                            template.Template %}
+                                                            {{ mat_resource.Name }}
+                                                        {% endfor %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% endif %}
+                                    <h4>WARNING: Fine Woods not included. No info in the NA API</h4>
+                                </div>
                             </div>
                         </div>
                         <!-- Ship Stats -->
-                        <div class="panel panel-info col-md-5">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Stats</h3>
-                            </div>
-                            <div class="panel-body">
-                                <h4>General Info</h4>
-                                <table class="table table-condensed">
-                                    <tr>
-                                        <td>BR</td>
-                                        <td>{{ ship.BattleRating }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>MaxSpeed</td>
-                                        <td>{{ ship.Specs.MaxSpeed }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Acceleration</td>
-                                        <td>{{ ship.Specs.Acceleration }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deceleration</td>
-                                        <td>{{ ship.Specs.Deceleration }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>MaxTurningSpeed</td>
-                                        <td>{{ ship.Specs.MaxTurningSpeed }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>MaxWeight</td>
-                                        <td>{{ ship.MaxWeight }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hold Slots</td>
-                                        <td>{{ ship.HoldSize }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Min Crew Required</td>
-                                        <td>{{ ship.MinCrewRequired }}</td>
-                                    </tr>
-                                </table>
+                        <div class="col-md-5">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Stats</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <h4>General Info</h4>
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <td>BR</td>
+                                            <td>{{ ship.BattleRating }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MaxSpeed</td>
+                                            <td>{{ ship.Specs.MaxSpeed }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Acceleration</td>
+                                            <td>{{ ship.Specs.Acceleration }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deceleration</td>
+                                            <td>{{ ship.Specs.Deceleration }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MaxTurningSpeed</td>
+                                            <td>{{ ship.Specs.MaxTurningSpeed }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MaxWeight</td>
+                                            <td>{{ ship.MaxWeight }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hold Slots</td>
+                                            <td>{{ ship.HoldSize }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Min Crew Required</td>
+                                            <td>{{ ship.MinCrewRequired }}</td>
+                                        </tr>
+                                    </table>
 
-                                <p></p>
-                                <h4>Health</h4>
-                                <table class="table table condensed">
-                                    <tr>
-                                        <td>RightArmor</td>
-                                        <td>{{ ship.HealthInfo.RightArmor }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>LeftArmor</td>
-                                        <td>{{ ship.HealthInfo.LeftArmor }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>FrontArmor</td>
-                                        <td>{{ ship.HealthInfo.FrontArmor }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>BackArmor</td>
-                                        <td>{{ ship.HealthInfo.BackArmor }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hull</td>
-                                        <td>{{ ship.HealthInfo.Hull }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deck1</td>
-                                        <td>{{ ship.HealthInfo.Deck1 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deck2</td>
-                                        <td>{{ ship.HealthInfo.Deck2 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deck3</td>
-                                        <td>{{ ship.HealthInfo.Deck3 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deck4</td>
-                                        <td>{{ ship.HealthInfo.Deck4 }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pump</td>
-                                        <td>{{ ship.HealthInfo.Pump }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sails</td>
-                                        <td>{{ ship.HealthInfo.Sails }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Crew</td>
-                                        <td>{{ ship.HealthInfo.Crew }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rudder</td>
-                                        <td>{{ ship.HealthInfo.Rudder }}</td>
-                                    </tr>
-                                </table>
+                                    <p></p>
+                                    <h4>Health</h4>
+                                    <table class="table table condensed">
+                                        <tr>
+                                            <td>RightArmor</td>
+                                            <td>{{ ship.HealthInfo.RightArmor }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>LeftArmor</td>
+                                            <td>{{ ship.HealthInfo.LeftArmor }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FrontArmor</td>
+                                            <td>{{ ship.HealthInfo.FrontArmor }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BackArmor</td>
+                                            <td>{{ ship.HealthInfo.BackArmor }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hull</td>
+                                            <td>{{ ship.HealthInfo.Hull }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deck1</td>
+                                            <td>{{ ship.HealthInfo.Deck1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deck2</td>
+                                            <td>{{ ship.HealthInfo.Deck2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deck3</td>
+                                            <td>{{ ship.HealthInfo.Deck3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deck4</td>
+                                            <td>{{ ship.HealthInfo.Deck4 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pump</td>
+                                            <td>{{ ship.HealthInfo.Pump }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sails</td>
+                                            <td>{{ ship.HealthInfo.Sails }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Crew</td>
+                                            <td>{{ ship.HealthInfo.Crew }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rudder</td>
+                                            <td>{{ ship.HealthInfo.Rudder }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-</div>
 {% endblock %}

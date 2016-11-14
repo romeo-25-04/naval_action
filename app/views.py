@@ -92,7 +92,7 @@ def direction(my_pos, port):
         alfa = 90
     elif a > x:
         alfa = 270
-    return round(alfa, 0)
+    return int(round(alfa, 0))
 
 
 def distance(my_pos, port_pos):
