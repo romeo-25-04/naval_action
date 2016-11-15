@@ -1,3 +1,6 @@
+from math import fabs
+
+
 class ProcessPorts:
     def __init__(self, data):
         self.port_data = data
@@ -7,15 +10,15 @@ class ProcessPorts:
         port_lat_lon = []
         for port in self.port_data:
             name = port.get('Name', '')
-            x = port['Position']['x']
-            z = port['Position']['z']
+            x = int(port['Position']['x'] / 100)
+            z = int(port['Position']['z'] / 100)
 
-            carl_x, carl_z = -23400.0005230308, -12000.0002682209
-            pr_x, pr_z = -42400.0009477139, -22600.0005051494
-            delta_x = carl_x - pr_x
-            delta_z = carl_z - pr_z
-            delta_x_grad = 75.56 - 75.18
-            delta_z_grad = 20.22 - 20.75
+            carl_x, carl_z = -234.0, -120.0
+            wilm_x, wilm_z = -116.0, -7906.0
+            delta_x = fabs(carl_x - wilm_x)
+            delta_z = fabs(carl_z - wilm_z)
+            delta_x_grad = fabs(75.54 - 75.77)
+            delta_z_grad = fabs(20.23 - 35.44)
 
             one_grad_x = delta_x/delta_x_grad
             one_grad_z = delta_z / delta_z_grad
