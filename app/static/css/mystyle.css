@@ -1,3 +1,5 @@
 body { padding-top: 70px; }
 .shipList{max-height: 300px; overflow-y:scroll;}
+.portList{max-height: 300px; overflow-y:scroll;}
 .handschrifft {font-family: 'Dancing Script', cursive;}
+tr.port:hover{ color:blue; cursor: pointer;}

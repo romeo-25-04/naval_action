@@ -51,7 +51,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Ports</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body portList">
                 <table class="table table-condensed">
                     <tr>
                         <th>Name</th>
@@ -59,10 +59,10 @@
                         <th>Z</th>
                     </tr>
                     {% for port in ports %}
-                        <tr>
+                        <tr class="port">
                             <td>{{ port.Name }}</td>
-                            <td>{{ port.lon }}</td>
-                            <td>{{ port.lat }}</td>
+                            <td class="lon">{{ port.lon }}</td>
+                            <td class="lat">{{ port.lat }}</td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -71,6 +71,7 @@
     </div>
 {% endblock %}
 {% block myscript %}
+    <script src="/static/js/navigation.js"></script>
     <script>
         $(document).ready(function () {
             var angle = {{ angle }};
