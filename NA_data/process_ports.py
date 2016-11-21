@@ -32,4 +32,4 @@ class ProcessPorts:
                 'lon': round(lon, 2),
                 'lat': round(lat, 2)
             })
-        return port_lat_lon
+        return sorted(port_lat_lon, key=lambda k: k['Name'])
